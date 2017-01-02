@@ -1,4 +1,4 @@
-package com.jackie.beijingnews;
+package com.jackie.beijingnews.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
-import com.jackie.beijingnews.activity.GuideActivity;
-import com.jackie.beijingnews.activity.MainActivity;
+import com.jackie.beijingnews.R;
 import com.jackie.beijingnews.utils.CacheUtils;
 
 public class SplashActivity extends Activity {
@@ -48,9 +47,8 @@ public class SplashActivity extends Activity {
 
         rl_splahs_root.startAnimation(set);
 
+        //设置动画监听
         set.setAnimationListener(new MyAnimationListener());
-
-
     }
 
     class MyAnimationListener implements Animation.AnimationListener {
@@ -84,13 +82,8 @@ public class SplashActivity extends Activity {
                 intent = new Intent(SplashActivity.this,GuideActivity.class);
             }
             startActivity(intent);
-
             //关闭Splash页面
             finish();
-
-
-//            Toast.makeText(SplashActivity.this, "动画播放完成了", Toast.LENGTH_SHORT).show();
-
         }
 
         /**
