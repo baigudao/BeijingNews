@@ -30,6 +30,7 @@ public class LeftmenuFragment extends BaseFragment {
 
     private ListView listView;
 
+
     /**
      * 点击的位置
      */
@@ -59,23 +60,10 @@ public class LeftmenuFragment extends BaseFragment {
                 mainActivity.getSlidingMenu().toggle();//关<->开
 
                 //3.切换到对应的详情页面：新闻详情页面，专题详情页面，图组详情页面，互动详情页面
-                swichPager(prePosition);
-
+                //swichPager(prePosition);
             }
         });
-
         return listView;
-    }
-
-    /**
-     * 根据位置切换不同详情页面
-     * @param position
-     */
-    private void swichPager(int position) {
-//        MainActivity mainActivity = (MainActivity) context;
-//        ContentFragment contentFragment = mainActivity.getContentFragment();
-//        NewsCenterPager newsCenterPager = contentFragment.getNewsCenterPager();
-//        newsCenterPager.swichPager(position);
     }
 
     @Override
@@ -83,26 +71,6 @@ public class LeftmenuFragment extends BaseFragment {
         super.initData();
         LogUtil.e("左侧菜单数据被初始化了");
     }
-
-    /**
-     * 接收数据
-     * @param data
-     */
-    public void setData(List<NewsCenterPagerBean2.DetailPagerData> data) {
-        this.data = data;
-        for(int i=0;i<data.size();i++){
-            LogUtil.e("title=="+data.get(i).getTitle());
-        }
-
-        //设置适配器
-        adapter   = new LeftmenuFragmentAdapter();
-        listView.setAdapter(adapter);
-
-       //设置默认页面
-        swichPager(prePosition);
-
-    }
-
 
     class LeftmenuFragmentAdapter extends BaseAdapter{
 
@@ -135,7 +103,5 @@ public class LeftmenuFragment extends BaseFragment {
         public long getItemId(int position) {
             return 0;
         }
-
-
     }
 }

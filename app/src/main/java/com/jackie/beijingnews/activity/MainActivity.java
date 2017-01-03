@@ -1,10 +1,14 @@
 package com.jackie.beijingnews.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.view.Window;
 
 import com.jackie.beijingnews.R;
+import com.jackie.beijingnews.fragment.ContentFragment;
+import com.jackie.beijingnews.fragment.LeftmenuFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
@@ -22,8 +26,21 @@ public class MainActivity extends SlidingFragmentActivity {
         super.onCreate(savedInstanceState);
         initSlidingMenu();
         //初始化Fragment
-        //initFragment();
+        initFragment();
+    }
 
+    private void initFragment() {
+        //1.得到FragmentManger
+        FragmentManager fm = getSupportFragmentManager();
+        //2.开启事务
+        FragmentTransaction ft= fm.beginTransaction();
+        //3.替换
+        ft.replace(R.id.fl_main_content,new ContentFragment(), MAIN_CONTENT_TAG);//主页
+        ft.replace(R.id.fl_leftmenu, new LeftmenuFragment(), LEFTMENU_TAG);//左侧菜单
+        //4.提交
+        ft.commit();
+
+//        也可以这样写：getSupportFragmentManager().beginTransaction().replace(R.id.fl_main_content,new ContentFragment(), MAIN_CONTENT_TAG).replace(R.id.fl_leftmenu,new LeftmenuFragment(), LEFTMENU_TAG).commit();
     }
 
     private void initSlidingMenu() {

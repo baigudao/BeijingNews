@@ -7,12 +7,12 @@
     android:background="@android:color/white"
     tools:context="com.jackie.beijingnews.activity.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="我是主页面"
-        android:textColor="#ff0000"
-        android:textSize="25sp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:text="我是主页面"-->
+        <!--android:textColor="#ff0000"-->
+        <!--android:textSize="25sp" />-->
 
 </FrameLayout>
