@@ -41,7 +41,6 @@ public class MainActivity extends SlidingFragmentActivity {
         //2.设置左侧菜单
         setBehindContentView(R.layout.activity_leftmenu);
 
-
         //3.设置右侧菜单
         SlidingMenu slidingMenu = getSlidingMenu();
 //        slidingMenu.setSecondaryMenu(R.layout.activity_rightmenu);//设置右侧菜单
