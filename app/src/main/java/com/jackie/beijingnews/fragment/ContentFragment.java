@@ -8,22 +8,26 @@ import com.jackie.beijingnews.R;
 import com.jackie.beijingnews.base.BaseFragment;
 import com.jackie.beijingnews.utils.LogUtil;
 
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
 /**
  * 作用：正文Fragment
  */
 public class ContentFragment extends BaseFragment {
 
+    //2.初始化控件
+    @ViewInject(R.id.viewpager)
     private ViewPager viewPager;
+    @ViewInject(R.id.rg_main)
     private RadioGroup rg_main;
 
     @Override
     public View initView() {
         LogUtil.e("正文Fragemnt视图被初始化了");
         View view = View.inflate(context, R.layout.content_fragment,null);
-        viewPager = (ViewPager)view.findViewById(R.id.viewpager);
-        rg_main = (RadioGroup)view.findViewById(R.id.rg_main);
         //1.把视图注入到框架中，让ContentFragment.this和View关联起来
-        //x.view().inject(ContentFragment.this,view);
+        x.view().inject(ContentFragment.this,view);
         return view;
     }
 
