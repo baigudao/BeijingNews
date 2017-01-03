@@ -1,9 +1,6 @@
 package com.jackie.beijingnews.utils;
 
 /**
- * 作者：尚硅谷-杨光福 on 2016/8/15 11:44
- * 微信：yangguangfu520
- * QQ号：541433511
  * 作用：常量类，配置联网请求地址
  */
 public class Constants {
@@ -19,7 +16,7 @@ public class Constants {
     /**
      * 新闻中心的网络地址
      */
-    public static final String NEWSCENTER_PAGER_URL = BASE_URL+"/static/api/news/categories.json";
+    public static final String NEWSCENTER_PAGER_URL = BASE_URL + "/static/api/news/categories.json";
 
     /**
      * 商品热卖

@@ -24,6 +24,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_splash);
         rl_splahs_root = (RelativeLayout) findViewById(R.id.rl_splahs_root);
 
@@ -49,8 +50,10 @@ public class SplashActivity extends Activity {
 
         //设置动画监听
         set.setAnimationListener(new MyAnimationListener());
+
     }
 
+    //动画监听
     class MyAnimationListener implements Animation.AnimationListener {
 
         /**
@@ -59,7 +62,6 @@ public class SplashActivity extends Activity {
          */
         @Override
         public void onAnimationStart(Animation animation) {
-
         }
 
         /**
@@ -92,7 +94,6 @@ public class SplashActivity extends Activity {
          */
         @Override
         public void onAnimationRepeat(Animation animation) {
-
         }
     }
 }

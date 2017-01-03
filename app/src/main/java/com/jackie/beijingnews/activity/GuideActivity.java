@@ -39,6 +39,7 @@ public class GuideActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_guide);
         viewpager = (ViewPager) findViewById(R.id.viewpager);
         btn_start_main = (Button) findViewById(R.id.btn_start_main);
@@ -108,6 +109,7 @@ public class GuideActivity extends Activity {
         });
     }
 
+    //屏幕滑动的百分比
     class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         /**
@@ -131,7 +133,6 @@ public class GuideActivity extends Activity {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) iv_red_point.getLayoutParams();
             params.leftMargin = leftmargin;
             iv_red_point.setLayoutParams(params);
-
         }
 
         /**
@@ -158,26 +159,25 @@ public class GuideActivity extends Activity {
          */
         @Override
         public void onPageScrollStateChanged(int state) {
-
         }
     }
 
+    //全局布局的监听
     class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
 
         @Override
         public void onGlobalLayout() {
 
-            //执行不只一次
+            //执行不只一次，让它只执行一次
             iv_red_point.getViewTreeObserver().removeGlobalOnLayoutListener(MyOnGlobalLayoutListener.this);
 
             //间距  = 第1个点距离左边的距离 - 第0个点距离左边的距离
             leftmax = ll_point_group.getChildAt(1).getLeft() - ll_point_group.getChildAt(0).getLeft();
             Log.e(TAG, "leftMax==" + leftmax);
-
         }
     }
 
-
+    //ViewPager的适配器类
     class MyPagerAdapter extends PagerAdapter {
 
         /**

@@ -95,7 +95,6 @@ public class CacheUtils {
                 ///mnt/sdcard/beijingnews/files/llkskljskljklsjklsllsl
                 File file = new File(Environment.getExternalStorageDirectory() + "/beijingnews/files", fileName);
 
-
                 if (file.exists()) {
 
                     FileInputStream is = new FileInputStream(file);
@@ -111,10 +110,7 @@ public class CacheUtils {
                     stream.close();
 
                     result = stream.toString();
-
-
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 LogUtil.e("图片获取失败");
