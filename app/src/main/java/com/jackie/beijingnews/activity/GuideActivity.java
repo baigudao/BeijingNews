@@ -16,10 +16,12 @@ import android.widget.RelativeLayout;
 
 import com.jackie.beijingnews.R;
 import com.jackie.beijingnews.utils.CacheUtils;
+import com.jackie.beijingnews.utils.DensityUtil;
 
 import java.util.ArrayList;
 
 public class GuideActivity extends Activity {
+
     private static final String TAG = GuideActivity.class.getSimpleName();
     private ViewPager viewpager;
     private Button btn_start_main;
@@ -50,7 +52,7 @@ public class GuideActivity extends Activity {
                 R.drawable.guide_3
         };
 
-       // widthdpi = DensityUtil.dip2px(this, 10);
+        widthdpi = DensityUtil.dip2px(this, 10);
         Log.e(TAG, widthdpi + "--------------");
 
         imageViews = new ArrayList<>();
@@ -168,9 +170,9 @@ public class GuideActivity extends Activity {
             //执行不只一次
             iv_red_point.getViewTreeObserver().removeGlobalOnLayoutListener(MyOnGlobalLayoutListener.this);
 
-//            间距  = 第1个点距离左边的距离 - 第0个点距离左边的距离
+            //间距  = 第1个点距离左边的距离 - 第0个点距离左边的距离
             leftmax = ll_point_group.getChildAt(1).getLeft() - ll_point_group.getChildAt(0).getLeft();
-            Log.e(TAG, "leftmax==" + leftmax);
+            Log.e(TAG, "leftMax==" + leftmax);
 
         }
     }
