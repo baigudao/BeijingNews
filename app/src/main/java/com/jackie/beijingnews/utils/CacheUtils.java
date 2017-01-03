@@ -10,9 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 /**
- * 作者：尚硅谷-杨光福 on 2016/8/13 11:35
- * 微信：yangguangfu520
- * QQ号：541433511
  * 作用：缓存软件的一些参数和数据
  */
 public class CacheUtils {

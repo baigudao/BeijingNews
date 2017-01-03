@@ -70,13 +70,13 @@ public class SplashActivity extends Activity {
         public void onAnimationEnd(Animation animation) {
 
             //判断是否进入过主页面
-            boolean isStartMain = CacheUtils.getBoolean(SplashActivity.this, START_MAIN);
+            boolean isStartMain = CacheUtils.getBoolean(SplashActivity.this,  START_MAIN);
+
             Intent intent;
             if(isStartMain){
                 //如果进入过主页面，直接进入主页面
                 //2.跳转到主页面
                 intent = new Intent(SplashActivity.this,MainActivity.class);
-
             }else{
                 //如果没有进入过主页面，进入引导页面
                 intent = new Intent(SplashActivity.this,GuideActivity.class);
