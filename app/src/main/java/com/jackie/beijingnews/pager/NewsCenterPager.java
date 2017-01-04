@@ -3,13 +3,20 @@ package com.jackie.beijingnews.pager;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jackie.beijingnews.activity.MainActivity;
 import com.jackie.beijingnews.base.BasePager;
+import com.jackie.beijingnews.base.MenuDetaiBasePager;
 import com.jackie.beijingnews.domain.NewsCenterPagerBean;
 import com.jackie.beijingnews.fragment.LeftmenuFragment;
+import com.jackie.beijingnews.menudatailpager.InteracMenuDetailPager;
+import com.jackie.beijingnews.menudatailpager.NewsMenuDetailPager;
+import com.jackie.beijingnews.menudatailpager.PhotosMenuDetailPager;
+import com.jackie.beijingnews.menudatailpager.TopicMenuDetailPager;
 import com.jackie.beijingnews.utils.Constants;
 import com.jackie.beijingnews.utils.LogUtil;
 
@@ -17,6 +24,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +37,11 @@ public class NewsCenterPager extends BasePager {
      */
     private List<NewsCenterPagerBean.DataEntity> data;
 
+    /**
+     * 详情页面的集合
+     */
+    private ArrayList<com.jackie.beijingnews.base.MenuDetaiBasePager> detaiBasePagers;
+
     public NewsCenterPager(Context context) {
         super(context);
     }
@@ -37,8 +50,9 @@ public class NewsCenterPager extends BasePager {
     public void initData() {
         super.initData();
         LogUtil.e("新闻中心数据被初始化了..");
+        ib_menu.setVisibility(View.VISIBLE);
         //1.设置标题
-        tv_title.setText("新闻中心");
+//        tv_title.setText("新闻中心");
         //2.联网请求，得到数据，创建视图
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
@@ -47,7 +61,7 @@ public class NewsCenterPager extends BasePager {
         //3.把子视图添加到BasePager的FrameLayout中
         fl_content.addView(textView);
         //4.绑定数据
-        textView.setText("新闻中心内容");
+//        textView.setText("新闻中心内容");
 
         //联网请求数据
         getDataFromNet();
@@ -100,6 +114,13 @@ public class NewsCenterPager extends BasePager {
         //得到左侧菜单
         LeftmenuFragment leftmenuFragment = mainActivity.getLeftmenuFragment();
 
+        //添加详情页面
+        detaiBasePagers = new ArrayList<>();
+        detaiBasePagers.add(new NewsMenuDetailPager(context));//新闻详情页面
+        detaiBasePagers.add(new TopicMenuDetailPager(context));//专题详情页面
+        detaiBasePagers.add(new PhotosMenuDetailPager(context));//图组详情页面
+        detaiBasePagers.add(new InteracMenuDetailPager(context));//互动详情页面
+
         //把数据传递给左侧菜单
         leftmenuFragment.setData(data);
     }
@@ -112,5 +133,29 @@ public class NewsCenterPager extends BasePager {
      */
     private NewsCenterPagerBean parsedJson(String json) {
         return new Gson().fromJson(json, NewsCenterPagerBean.class);
+    }
+
+    /**
+     * 根据位置切换详情页面
+     *
+     * @param position
+     */
+    public void swichPager(int position) {
+        if (position < detaiBasePagers.size()) {
+            //1.设置标题
+            tv_title.setText(data.get(position).getTitle());
+            //2.移除之前内容
+            fl_content.removeAllViews();//移除之前的视图
+
+            //3.添加新内容
+            MenuDetaiBasePager detaiBasePager = detaiBasePagers.get(position);//
+            View rootView = detaiBasePager.rootView;
+            detaiBasePager.initData();//初始化数据
+
+            fl_content.addView(rootView);
+        } else {
+            Toast.makeText(context, "该页面还没有启用", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

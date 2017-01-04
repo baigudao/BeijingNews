@@ -88,6 +88,10 @@ public class ContentFragment extends BaseFragment {
         mainActivity.getSlidingMenu().setTouchModeAbove(touchmodeFullscreen);
     }
 
+    public NewsCenterPager getNewsCenterPager() {
+        return (NewsCenterPager) basePagers.get(1);
+    }
+
     class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
 
         /**
