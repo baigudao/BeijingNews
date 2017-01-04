@@ -77,6 +77,7 @@ public class ContentFragment extends BaseFragment {
 
         //设置默认SlidingMenu不可以滑动
         isEnableSlidingMenu(SlidingMenu.TOUCHMODE_NONE);
+
     }
 
     /**
