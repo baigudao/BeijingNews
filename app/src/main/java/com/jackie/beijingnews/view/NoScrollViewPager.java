@@ -29,7 +29,7 @@ public class NoScrollViewPager extends ViewPager {
     }
 
     /**
-     * 重写触摸事件，消费掉
+     * 重写触摸事件。返回true，事件就不会扩散出去。
      *
      * @param ev
      * @return
@@ -37,10 +37,5 @@ public class NoScrollViewPager extends ViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return true;
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return false;
     }
 }

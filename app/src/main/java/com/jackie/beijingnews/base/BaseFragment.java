@@ -59,7 +59,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
-     * 1.如果自页面没有数据，联网请求数据，并且绑定到initView初始化的视图上
+     * 1.如果子页面没有数据，联网请求数据，并且绑定到initView初始化的视图上
      * 2.绑定到initView初始化的视图上
      */
     public void initData() {

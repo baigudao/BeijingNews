@@ -31,7 +31,6 @@ public class MainActivity extends SlidingFragmentActivity {
         initSlidingMenu();
         //初始化Fragment
         initFragment();
-
     }
 
     private void initSlidingMenu() {
@@ -43,7 +42,7 @@ public class MainActivity extends SlidingFragmentActivity {
 
         //3.设置右侧菜单
         SlidingMenu slidingMenu = getSlidingMenu();
-//        slidingMenu.setSecondaryMenu(R.layout.activity_rightmenu);//设置右侧菜单
+//      slidingMenu.setSecondaryMenu(R.layout.activity_rightmenu);//设置右侧菜单
 
         //4.设置显示的模式：左侧菜单+主页，左侧菜单+主页面+右侧菜单；主页面+右侧菜单
         slidingMenu.setMode(SlidingMenu.LEFT);
@@ -53,42 +52,22 @@ public class MainActivity extends SlidingFragmentActivity {
 
         DisplayMetrics outmetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(outmetrics);
-        screeWidth = outmetrics.widthPixels;
-        screeHeight = outmetrics.heightPixels;
+        screeWidth = outmetrics.widthPixels;//屏幕宽
+        screeHeight = outmetrics.heightPixels;//屏幕高
         //6.设置主页占据的宽度
-//        slidingMenu.setBehindOffset(DensityUtil.dip2px(MainActivity.this, 200));
-        slidingMenu.setBehindOffset((int) (screeWidth*0.625));
+//      slidingMenu.setBehindOffset(DensityUtil.dip2px(MainActivity.this, 200));
+        slidingMenu.setBehindOffset((int) (screeWidth * 0.625));
     }
 
     private void initFragment() {
         //1.得到FragmentManger
         FragmentManager fm = getSupportFragmentManager();
         //2.开启事务
-        FragmentTransaction ft= fm.beginTransaction();
+        FragmentTransaction ft = fm.beginTransaction();
         //3.替换
-        ft.replace(R.id.fl_main_content,new ContentFragment(), MAIN_CONTENT_TAG);//主页
+        ft.replace(R.id.fl_main_content, new ContentFragment(), MAIN_CONTENT_TAG);//主页
         ft.replace(R.id.fl_leftmenu, new LeftmenuFragment(), LEFTMENU_TAG);//左侧菜单
         //4.提交
         ft.commit();
-
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fl_main_content,new ContentFragment(), MAIN_CONTENT_TAG).replace(R.id.fl_leftmenu,new LeftmenuFragment(), LEFTMENU_TAG).commit();
-    }
-
-    /**
-     * 得到左侧菜单Fragment
-     * @return
-     */
-    public LeftmenuFragment getLeftmenuFragment() {
-//        FragmentManager fm = getSupportFragmentManager();
-//        LeftmenuFragment leftmenuFragment = (LeftmenuFragment) fm.findFragmentByTag(LEFTMENU_TAG);
-        return  (LeftmenuFragment) getSupportFragmentManager().findFragmentByTag(LEFTMENU_TAG);
-    }
-
-    /**
-     * 得到正文Fragment
-     * @return
-     */
-    public ContentFragment getContentFragment() {
-        return  (ContentFragment) getSupportFragmentManager().findFragmentByTag(MAIN_CONTENT_TAG);
     }
 }
