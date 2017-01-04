@@ -70,4 +70,22 @@ public class MainActivity extends SlidingFragmentActivity {
         //4.提交
         ft.commit();
     }
+
+    /**
+     * 得到左侧菜单Fragment
+     *
+     * @return
+     */
+    public LeftmenuFragment getLeftmenuFragment() {
+        return (LeftmenuFragment) getSupportFragmentManager().findFragmentByTag(LEFTMENU_TAG);
+    }
+
+    /**
+     * 得到正文Fragment
+     *
+     * @return
+     */
+    public ContentFragment getContentFragment() {
+        return (ContentFragment) getSupportFragmentManager().findFragmentByTag(MAIN_CONTENT_TAG);
+    }
 }
