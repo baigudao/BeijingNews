@@ -1,1 +1,2 @@
-include ':app', 'SlidingMenu_library', ':xutils', 'xUtils3_sample'
+include ':app', 'SlidingMenu_library', ':xutils'
+include ':ViewPagerIndicator_library'

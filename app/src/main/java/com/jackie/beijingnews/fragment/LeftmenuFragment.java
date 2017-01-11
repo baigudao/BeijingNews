@@ -74,7 +74,7 @@ public class LeftmenuFragment extends BaseFragment {
      * @param data
      */
     public void setData(List<NewsCenterPagerBean.DataEntity> data) {
-        this.data = data;
+        this.data = data;//准备数据
         for (int i = 0; i < data.size(); i++) {
             LogUtil.e("title==" + data.get(i).getTitle());
         }

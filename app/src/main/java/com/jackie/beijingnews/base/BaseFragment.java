@@ -63,6 +63,5 @@ public abstract class BaseFragment extends Fragment {
      * 2.绑定到initView初始化的视图上
      */
     public void initData() {
-
     }
 }

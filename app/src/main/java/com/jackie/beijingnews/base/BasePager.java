@@ -1,6 +1,5 @@
 package com.jackie.beijingnews.base;
 
-
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;

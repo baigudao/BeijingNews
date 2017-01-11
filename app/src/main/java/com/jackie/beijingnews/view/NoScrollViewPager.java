@@ -19,7 +19,7 @@ public class NoScrollViewPager extends ViewPager {
     }
 
     /**
-     * 在布局文件中使用该类的时候，实例化该类用该构造方法，这个方法不能少，少的化会崩溃。
+     * 在布局文件中使用该类的时候，实例化该类用该构造方法，这个方法不能少，少的话会崩溃。
      *
      * @param context
      * @param attrs

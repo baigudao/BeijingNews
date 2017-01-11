@@ -2,6 +2,7 @@ package com.jackie.beijingnews.pager;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.jackie.beijingnews.menudatailpager.InteracMenuDetailPager;
 import com.jackie.beijingnews.menudatailpager.NewsMenuDetailPager;
 import com.jackie.beijingnews.menudatailpager.PhotosMenuDetailPager;
 import com.jackie.beijingnews.menudatailpager.TopicMenuDetailPager;
+import com.jackie.beijingnews.utils.CacheUtils;
 import com.jackie.beijingnews.utils.Constants;
 import com.jackie.beijingnews.utils.LogUtil;
 
@@ -52,7 +54,7 @@ public class NewsCenterPager extends BasePager {
         LogUtil.e("新闻中心数据被初始化了..");
         ib_menu.setVisibility(View.VISIBLE);
         //1.设置标题
-//        tv_title.setText("新闻中心");
+        tv_title.setText("新闻中心");
         //2.联网请求，得到数据，创建视图
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
@@ -62,6 +64,14 @@ public class NewsCenterPager extends BasePager {
         fl_content.addView(textView);
         //4.绑定数据
 //        textView.setText("新闻中心内容");
+
+        //得到缓存数据
+        String saveJson = CacheUtils.getString(context,Constants.NEWSCENTER_PAGER_URL);//""
+
+        if(!TextUtils.isEmpty(saveJson)){
+            processData(saveJson);
+        }
+
 
         //联网请求数据
         getDataFromNet();
@@ -76,6 +86,8 @@ public class NewsCenterPager extends BasePager {
             @Override
             public void onSuccess(String result) {
                 LogUtil.e("使用xUtils3联网请求成功==" + result);
+                //缓存数据
+                CacheUtils.putString(context,Constants.NEWSCENTER_PAGER_URL,result);
                 processData(result);
             }
 
@@ -116,7 +128,7 @@ public class NewsCenterPager extends BasePager {
 
         //添加详情页面
         detaiBasePagers = new ArrayList<>();
-        detaiBasePagers.add(new NewsMenuDetailPager(context));//新闻详情页面
+        detaiBasePagers.add(new NewsMenuDetailPager(context,data.get(0)));//新闻详情页面
         detaiBasePagers.add(new TopicMenuDetailPager(context));//专题详情页面
         detaiBasePagers.add(new PhotosMenuDetailPager(context));//图组详情页面
         detaiBasePagers.add(new InteracMenuDetailPager(context));//互动详情页面
