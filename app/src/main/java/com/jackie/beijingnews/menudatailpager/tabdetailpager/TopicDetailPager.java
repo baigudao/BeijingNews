@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.jackie.beijingnews.R;
 import com.jackie.beijingnews.base.MenuDetaiBasePager;
@@ -23,7 +21,6 @@ import com.jackie.beijingnews.utils.CacheUtils;
 import com.jackie.beijingnews.utils.Constants;
 import com.jackie.beijingnews.utils.LogUtil;
 import com.jackie.beijingnews.view.HorizontalScrollViewPager;
-import com.jackie.beijingnews.view.RefreshListView;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
@@ -36,7 +33,7 @@ import java.util.List;
 /**
  * 作用：页签详情页面
  */
-public class TabDetailPager extends MenuDetaiBasePager {
+public class TopicDetailPager extends MenuDetaiBasePager {
 
     private ImageOptions imageOptions;
 
@@ -57,7 +54,7 @@ public class TabDetailPager extends MenuDetaiBasePager {
     private TabDetailPagerListAdapter adapter;
 
 
-    public TabDetailPager(Context context, NewsCenterPagerBean.DataEntity.ChildrenData childrenData) {
+    public TopicDetailPager(Context context, NewsCenterPagerBean.DataEntity.ChildrenData childrenData) {
         super(context);
         this.childrenData = childrenData;
         imageOptions = new ImageOptions.Builder()
@@ -75,7 +72,7 @@ public class TabDetailPager extends MenuDetaiBasePager {
 
     @Override
     public View initView() {
-        View view = View.inflate(context, R.layout.tabdetail_pager, null);
+        View view = View.inflate(context, R.layout.topic_detail_pager, null);
         listView = (ListView) view.findViewById(R.id.listview);
 
         View topNewsView = View.inflate(context, R.layout.topnews, null);
@@ -211,7 +208,7 @@ public class TabDetailPager extends MenuDetaiBasePager {
             TabDetailPagerBean.DataBean.NewsBean newsBean = news.get(position);
             String imageUrl = Constants.BASE_URL + newsBean.getListimage();
             //请求图片
-            x.image().bind(viewHolder.iv_icon, imageUrl,imageOptions);
+            x.image().bind(viewHolder.iv_icon, imageUrl, imageOptions);
 //            Glide.with(context)
 //                    .load(imageUrl)
 //                    .diskCacheStrategy(DiskCacheStrategy.ALL)
