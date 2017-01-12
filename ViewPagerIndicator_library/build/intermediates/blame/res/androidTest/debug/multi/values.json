@@ -927,9 +927,9 @@
                     "startLine": 65,
                     "startColumn": 4,
                     "startOffset": 6081,
-                    "endLine": 75,
+                    "endLine": 76,
                     "endColumn": 12,
-                    "endOffset": 6678
+                    "endOffset": 6763
                 },
                 "from": {
                     "file": "E:\\android-as-ws\\BeijingNews\\ViewPagerIndicator_library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
@@ -937,9 +937,9 @@
                         "startLine": 65,
                         "startColumn": 4,
                         "startOffset": 6081,
-                        "endLine": 75,
+                        "endLine": 76,
                         "endColumn": 12,
-                        "endOffset": 6678
+                        "endOffset": 6763
                     }
                 }
             }

@@ -850,12 +850,12 @@
                 "from": {
                     "file": "E:\\android-as-ws\\BeijingNews\\ViewPagerIndicator_library\\src\\main\\res\\values\\vpi__styles.xml",
                     "position": {
-                        "startLine": 37,
+                        "startLine": 38,
                         "startColumn": 4,
-                        "startOffset": 1565,
-                        "endLine": 40,
+                        "startOffset": 1650,
+                        "endLine": 41,
                         "endColumn": 12,
-                        "endOffset": 1760
+                        "endOffset": 1845
                     }
                 }
             },
@@ -913,12 +913,12 @@
                 "from": {
                     "file": "E:\\android-as-ws\\BeijingNews\\ViewPagerIndicator_library\\src\\main\\res\\values\\vpi__styles.xml",
                     "position": {
-                        "startLine": 42,
+                        "startLine": 43,
                         "startColumn": 4,
-                        "startOffset": 1766,
-                        "endLine": 45,
+                        "startOffset": 1851,
+                        "endLine": 46,
                         "endColumn": 12,
-                        "endOffset": 1951
+                        "endOffset": 2036
                     }
                 }
             },
@@ -927,9 +927,9 @@
                     "startLine": 65,
                     "startColumn": 4,
                     "startOffset": 6081,
-                    "endLine": 75,
+                    "endLine": 76,
                     "endColumn": 12,
-                    "endOffset": 6678
+                    "endOffset": 6763
                 },
                 "from": {
                     "file": "E:\\android-as-ws\\BeijingNews\\ViewPagerIndicator_library\\src\\main\\res\\values\\vpi__styles.xml",
@@ -937,9 +937,9 @@
                         "startLine": 25,
                         "startColumn": 4,
                         "startOffset": 962,
-                        "endLine": 35,
+                        "endLine": 36,
                         "endColumn": 12,
-                        "endOffset": 1559
+                        "endOffset": 1644
                     }
                 }
             }
