@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,6 +43,11 @@ public class TabDetailPager extends MenuDetaiBasePager {
      * 顶部轮播图的数据
      */
     private List<TabDetailPagerBean.DataBean.TopnewsBean> topnews;
+    /**
+     * 新闻列表数据的集合
+     */
+    private List<TabDetailPagerBean.DataBean.NewsBean> news;
+    private TabDetailPagerListAdapter adapter;
 
 
     public TabDetailPager(Context context, NewsCenterPagerBean.DataEntity.ChildrenData childrenData) {
@@ -131,6 +137,72 @@ public class TabDetailPager extends MenuDetaiBasePager {
         //默认选中
         tv_title.setText(topnews.get(prePosition).getTitle());
 
+        //准备ListView对应的集合数据
+        news = bean.getData().getNews();
+        //设置ListView的适配器
+        adapter = new TabDetailPagerListAdapter();
+        listView.setAdapter(adapter);
+//    }else{
+//        //加载更多
+//        isLoadMore = false;
+//        //添加到原来的集合中
+//        news.addAll(bean.getData().getNews());
+//        //刷新适配器
+//        adapter.notifyDataSetChanged();
+//
+    }
+
+    class TabDetailPagerListAdapter extends BaseAdapter{
+        @Override
+        public int getCount() {
+            return news.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView == null){
+                convertView = View.inflate(context,R.layout.item_tabdetail_pager,null);
+                viewHolder = new ViewHolder();
+                viewHolder.iv_icon = (ImageView)convertView.findViewById(R.id.iv_icon);
+                viewHolder.tv_title = (TextView)convertView.findViewById(R.id.tv_title);
+                viewHolder.tv_time = (TextView)convertView.findViewById(R.id.tv_time);
+
+                convertView.setTag(viewHolder);
+
+            }else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+
+            //根据位置得到数据
+            TabDetailPagerBean.DataBean.NewsBean newsBean = news.get(position);
+            String imageUrl = Constants.BASE_URL + newsBean.getListimage();
+            //请求图片
+            x.image().bind(viewHolder.iv_icon,imageUrl);
+
+            //设置标题
+            viewHolder.tv_title.setText(newsBean.getTitle());
+            //设置时间
+            viewHolder.tv_time.setText(newsBean.getPubdate());
+
+            return convertView;
+        }
+    }
+
+    static class ViewHolder {
+        ImageView iv_icon;
+        TextView tv_title;
+        TextView tv_time;
     }
 
     private void addPoint() {
