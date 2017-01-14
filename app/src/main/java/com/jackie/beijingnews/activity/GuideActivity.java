@@ -46,13 +46,17 @@ public class GuideActivity extends Activity {
         ll_point_group = (LinearLayout) findViewById(R.id.ll_point_group);
         iv_red_point = (ImageView) findViewById(R.id.iv_red_point);
 
-        //准备数据
+        //准备资源
         int[] ids = new int[]{
                 R.drawable.guide_1,
                 R.drawable.guide_2,
                 R.drawable.guide_3
         };
 
+        /**
+         * 单位是像数
+         * 把单位当成dp转成对应的像数
+         */
         widthdpi = DensityUtil.dip2px(this, 10);
         Log.e(TAG, widthdpi + "--------------");
 
@@ -68,10 +72,7 @@ public class GuideActivity extends Activity {
             //创建点
             ImageView point = new ImageView(this);
             point.setBackgroundResource(R.drawable.point_normal);
-            /**
-             * 单位是像数
-             * 把单位当成dp转成对应的像数
-             */
+
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(widthdpi, widthdpi);
             if (i != 0) {
                 //不包括第0个，所有的点距离左边有10个像数
@@ -200,7 +201,7 @@ public class GuideActivity extends Activity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             ImageView imageView = imageViews.get(position);
-            //添加到容器中
+            //一定要添加到容器中
             container.addView(imageView);
             return imageView;
         }

@@ -20,7 +20,7 @@
         android:background="@drawable/btn_start_main_selector"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:text="开始体验"
+        android:text="@string/start_button"
         android:textColor="@drawable/btn_start_main_textcolor_selector"
         android:textSize="18sp"
         android:visibility="gone" />

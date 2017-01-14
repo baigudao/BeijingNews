@@ -29,13 +29,13 @@ public class SplashActivity extends Activity {
         rl_splahs_root = (RelativeLayout) findViewById(R.id.rl_splahs_root);
 
         //渐变动画，缩放动画，旋转动画
-        AlphaAnimation aa = new AlphaAnimation(0,1);
+        AlphaAnimation aa = new AlphaAnimation(0, 1);
         aa.setFillAfter(true);
 
-        ScaleAnimation sa = new ScaleAnimation(0,1,0,1,ScaleAnimation.RELATIVE_TO_SELF,0.5f,ScaleAnimation.RELATIVE_TO_SELF,0.5f);
+        ScaleAnimation sa = new ScaleAnimation(0, 1, 0, 1, ScaleAnimation.RELATIVE_TO_SELF, 0.5f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
         sa.setFillAfter(true);
 
-        RotateAnimation ra = new RotateAnimation(0,360,RotateAnimation.RELATIVE_TO_SELF,0.5f,RotateAnimation.RELATIVE_TO_SELF,0.5f);
+        RotateAnimation ra = new RotateAnimation(0, 360, RotateAnimation.RELATIVE_TO_SELF, 0.5f, RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         ra.setFillAfter(true);
 
         AnimationSet set = new AnimationSet(false);
@@ -45,12 +45,10 @@ public class SplashActivity extends Activity {
         set.addAnimation(sa);
         set.setDuration(2000);
 
-
         rl_splahs_root.startAnimation(set);
 
         //设置动画监听
         set.setAnimationListener(new MyAnimationListener());
-
     }
 
     //动画监听
@@ -58,6 +56,7 @@ public class SplashActivity extends Activity {
 
         /**
          * 当动画开始播放的时候回调这个方法
+         *
          * @param animation
          */
         @Override
@@ -66,6 +65,7 @@ public class SplashActivity extends Activity {
 
         /**
          * 当动画播放结束的时候回调这个方法
+         *
          * @param animation
          */
         @Override
@@ -75,13 +75,13 @@ public class SplashActivity extends Activity {
             boolean isStartMain = CacheUtils.getBoolean(SplashActivity.this,  START_MAIN);
 
             Intent intent;
-            if(isStartMain){
+            if (isStartMain) {
                 //如果进入过主页面，直接进入主页面
                 //2.跳转到主页面
-                intent = new Intent(SplashActivity.this,MainActivity.class);
-            }else{
+                intent = new Intent(SplashActivity.this, MainActivity.class);
+            } else {
                 //如果没有进入过主页面，进入引导页面
-                intent = new Intent(SplashActivity.this,GuideActivity.class);
+                intent = new Intent(SplashActivity.this, GuideActivity.class);
             }
             startActivity(intent);
             //关闭Splash页面
@@ -90,6 +90,7 @@ public class SplashActivity extends Activity {
 
         /**
          * 当动画重复播放的时候回调这个方法
+         *
          * @param animation
          */
         @Override

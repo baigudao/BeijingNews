@@ -31,4 +31,6 @@ dependencies {
     compile project(':PullToRefresh_library')
     compile files('libs/jpush-android_v3.0.1.jar')
     compile files('libs/jcore-android_v1.1.0.jar')
+    compile files('libs/android-async-http-1.4.5.jar')
+    compile files('libs/httpcore-4.2.4.jar')
 }
