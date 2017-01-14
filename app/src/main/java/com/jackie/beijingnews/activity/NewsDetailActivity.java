@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.jackie.beijingnews.R;
 
-
 public class NewsDetailActivity extends Activity implements View.OnClickListener {
 
     private TextView tvTitle;
@@ -94,13 +93,11 @@ public class NewsDetailActivity extends Activity implements View.OnClickListener
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 realSize = tempSize;
                 changeTextSize(realSize);
             }
         });
         builder.show();
-
     }
 
     private void changeTextSize(int realSize) {

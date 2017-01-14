@@ -29,4 +29,6 @@ dependencies {
     compile project(':ViewPagerIndicator_library')
     compile files('libs/glide-3.7.0.jar')
     compile project(':PullToRefresh_library')
+    compile files('libs/jpush-android_v3.0.1.jar')
+    compile files('libs/jcore-android_v1.1.0.jar')
 }
