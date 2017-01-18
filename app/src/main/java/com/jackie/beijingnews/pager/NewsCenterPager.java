@@ -50,17 +50,6 @@ public class NewsCenterPager extends BasePager {
         super.initData();
         LogUtil.e("新闻中心数据被初始化了..");
         ib_menu.setVisibility(View.VISIBLE);
-        //1.设置标题
-//        tv_title.setText("新闻中心");
-        //2.联网请求，得到数据，创建视图
-//        TextView textView = new TextView(context);
-//        textView.setGravity(Gravity.CENTER);
-//        textView.setTextColor(Color.RED);
-//        textView.setTextSize(25);
-        //3.把子视图添加到BasePager的FrameLayout中
-//        fl_content.addView(textView);
-        //4.绑定数据
-//        textView.setText("新闻中心内容");
 
         //得到缓存数据
         String saveJson = CacheUtils.getString(context, Constants.NEWSCENTER_PAGER_URL);//""
@@ -71,6 +60,7 @@ public class NewsCenterPager extends BasePager {
 
         //联网请求数据
         getDataFromNet();
+
     }
 
     /**
@@ -125,7 +115,7 @@ public class NewsCenterPager extends BasePager {
         //添加详情页面
         detaiBasePagers = new ArrayList<>();
         detaiBasePagers.add(new NewsMenuDetailPager(context, data.get(0)));//新闻详情页面
-        detaiBasePagers.add(new TopicMenuDetailPager(context, data.get(0)));//专题详情页面
+        detaiBasePagers.add(new TopicMenuDetailPager(context));//专题详情页面
         detaiBasePagers.add(new PhotosMenuDetailPager(context));//图组详情页面
         detaiBasePagers.add(new InteracMenuDetailPager(context));//互动详情页面
 

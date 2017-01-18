@@ -1,11 +1,11 @@
 [
     {
-        "merged": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\build\\intermediates\\res\\merged\\debug\\layout\\main.xml",
-        "source": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\res\\layout\\main.xml"
-    },
-    {
         "merged": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\build\\intermediates\\res\\merged\\debug\\layout\\set_push_time.xml",
         "source": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\res\\layout\\set_push_time.xml"
+    },
+    {
+        "merged": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\build\\intermediates\\res\\merged\\debug\\layout\\main.xml",
+        "source": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\res\\layout\\main.xml"
     },
     {
         "merged": "E:\\android-as-ws\\BeijingNews\\JPush_sample\\build\\intermediates\\res\\merged\\debug\\layout\\customer_notitfication_layout.xml",

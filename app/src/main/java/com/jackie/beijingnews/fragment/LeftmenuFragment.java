@@ -38,7 +38,6 @@ public class LeftmenuFragment extends BaseFragment {
         listView.setPadding(0, DensityUtil.dip2px(context, 40), 0, 0);
         listView.setDividerHeight(0);//设置分割线高度为0
         listView.setCacheColorHint(Color.TRANSPARENT);
-
         //设置按下listView的item不变色
         listView.setSelector(android.R.color.transparent);
 
@@ -50,12 +49,14 @@ public class LeftmenuFragment extends BaseFragment {
                 prePosition = position;
                 adapter.notifyDataSetChanged();//getCount()-->getView
 
-                //2.把左侧菜单关闭
+                //2.切换到对应的详情页面：新闻详情页面，专题详情页面，图组详情页面，互动详情页面
+                swichPager(prePosition);
+
+                //3.把左侧菜单关闭
                 MainActivity mainActivity = (MainActivity) context;
                 mainActivity.getSlidingMenu().toggle();//关<->开
 
-                //3.切换到对应的详情页面：新闻详情页面，专题详情页面，图组详情页面，互动详情页面
-                swichPager(prePosition);
+
             }
         });
 

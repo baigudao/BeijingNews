@@ -1,6 +1,7 @@
 package com.jackie.beijingnews.menudatailpager;
 
 import android.content.Context;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.jackie.beijingnews.domain.NewsCenterPagerBean;
 import com.jackie.beijingnews.menudatailpager.tabdetailpager.TabDetailPager;
 import com.jackie.beijingnews.utils.LogUtil;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
-import com.viewpagerindicator.TabPageIndicator;
 
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -27,15 +27,10 @@ import java.util.List;
  */
 public class NewsMenuDetailPager extends MenuDetaiBasePager {
 
-
-    @ViewInject(R.id.tabPageIndicator)
-    private TabPageIndicator tabPageIndicator;
-
-
+    @ViewInject(R.id.tabLayout)
+    private TabLayout tabLayout;
     @ViewInject(R.id.viewpager)
     private ViewPager viewPager;
-
-
     @ViewInject(R.id.ib_tab_next)
     private ImageButton ib_tab_next;
 
@@ -83,10 +78,14 @@ public class NewsMenuDetailPager extends MenuDetaiBasePager {
         //设置ViewPager的适配器
         viewPager.setAdapter(new MyNewsMenuDetailPagerAdapter());
         //ViewPager和TabPageIndicator关联
-        tabPageIndicator.setViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+        //tabPageIndicator.setViewPager(viewPager);
+        //设置TabLayout模式
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
         //注意以后监听页面的变化 ，TabPageIndicator监听页面的变化
-        tabPageIndicator.setOnPageChangeListener(new MyOnPageChangeListener());
+        //tabLayout.setOnPageChangeListener(new MyOnPageChangeListener());
+        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         viewPager.setCurrentItem(tempPositon);
     }
 

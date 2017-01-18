@@ -50,19 +50,16 @@
         </activity>
 
         <activity android:name=".activity.GuideActivity" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/Theme.PageIndicatorDefaults" />
+        <activity android:name=".activity.MainActivity" />
 
         <activity android:name=".activity.NewsDetailActivity" />
-
 
 
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
             android:exported="false"
-            android:theme="@style/MyDialogStyle"/>
+            android:theme="@style/MyDialogStyle" />
 
         <!-- Required SDK核心功能-->
         <activity
@@ -72,6 +69,7 @@
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.jackie.beijingnews" />
             </intent-filter>
@@ -80,7 +78,7 @@
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <!-- Required SDK 核心功能-->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -123,6 +121,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
