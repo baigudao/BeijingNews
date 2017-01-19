@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.handmark.pulltorefresh.library.extras.SoundPullEventListener;
 import com.jackie.beijingnews.R;
 import com.jackie.beijingnews.activity.NewsDetailActivity;
 import com.jackie.beijingnews.base.MenuDetaiBasePager;
@@ -58,7 +61,16 @@ public class TabDetailPager extends MenuDetaiBasePager {
      */
     private List<TabDetailPagerBean.DataBean.NewsBean> news;
     private TabDetailPagerListAdapter adapter;
+    private PullToRefreshListView mPullRefreshListView;
 
+    /**
+     * 下一页的联网路径
+     */
+    private String moreUrl;
+    /**
+     * 是否加载更多
+     */
+    private boolean isLoadMore = false;
 
     public TabDetailPager(Context context, NewsCenterPagerBean.DataEntity.ChildrenData childrenData) {
         super(context);
@@ -79,17 +91,47 @@ public class TabDetailPager extends MenuDetaiBasePager {
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.tabdetail_pager, null);
-        listView = (ListView) view.findViewById(R.id.listview);
+        mPullRefreshListView = (PullToRefreshListView) view.findViewById(R.id.pull_refresh_list);
+        listView = mPullRefreshListView.getRefreshableView();
+
+        /**
+         * Add Sound Event Listener
+         */
+        SoundPullEventListener<ListView> soundListener = new SoundPullEventListener<ListView>(context);
+        soundListener.addSoundEvent(PullToRefreshBase.State.PULL_TO_REFRESH, R.raw.pull_event);
+        soundListener.addSoundEvent(PullToRefreshBase.State.RESET, R.raw.reset_sound);
+        soundListener.addSoundEvent(PullToRefreshBase.State.REFRESHING, R.raw.refreshing_sound);
+        mPullRefreshListView.setOnPullEventListener(soundListener);
 
         View topNewsView = View.inflate(context, R.layout.topnews, null);
         viewPager = (HorizontalScrollViewPager) topNewsView.findViewById(R.id.viewpager);
         tv_title = (TextView) topNewsView.findViewById(R.id.tv_title);
         ll_point_group = (LinearLayout) topNewsView.findViewById(R.id.ll_point_group);
+
         //以头部的方式将topNewsView加入ListView中
         listView.addHeaderView(topNewsView);
 
         //设置ListView的item的监听
         listView.setOnItemClickListener(new MyOnItemClickListener());
+        //监听下拉刷新
+        mPullRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                getDataFromNet();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                if (TextUtils.isEmpty(moreUrl)) {
+                    //没有更多数据
+                    Toast.makeText(context, "没有更多数据", Toast.LENGTH_SHORT).show();
+                    mPullRefreshListView.onRefreshComplete();
+                } else {
+                    getMoreDataFromNet();
+                }
+            }
+        });
         return view;
     }
 
@@ -109,10 +151,9 @@ public class TabDetailPager extends MenuDetaiBasePager {
     }
 
     private void getDataFromNet() {
-//        prePosition = 0;
         LogUtil.e("url地址===" + url);
         RequestParams params = new RequestParams(url);
-//        params.setConnectTimeout(4000);
+        params.setConnectTimeout(4000);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -123,14 +164,14 @@ public class TabDetailPager extends MenuDetaiBasePager {
                 processData(result);
 
                 //隐藏下拉刷新控件-重写显示数据，更新时间
-//                listview.onRefreshFinish(true);
+                mPullRefreshListView.onRefreshComplete();
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 LogUtil.e(childrenData.getTitle() + "-页面数据请求失败==" + ex.getMessage());
                 //隐藏下拉刷新控件 - 不更新时间，只是隐藏
-//                listview.onRefreshFinish(false);
+                mPullRefreshListView.onRefreshComplete();
             }
 
             @Override
@@ -141,6 +182,39 @@ public class TabDetailPager extends MenuDetaiBasePager {
             @Override
             public void onFinished() {
                 LogUtil.e(childrenData.getTitle() + "-onFinished==");
+            }
+        });
+    }
+
+
+    private void getMoreDataFromNet() {
+        RequestParams params = new RequestParams(moreUrl);
+        params.setConnectTimeout(4000);
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                LogUtil.e("加载更多联网成功==" + result);
+                mPullRefreshListView.onRefreshComplete();
+                //把这个放在前面
+                isLoadMore = true;
+                //解析数据
+                processData(result);
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                LogUtil.e("加载更多联网失败onError==" + ex.getMessage());
+                mPullRefreshListView.onRefreshComplete();//
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                LogUtil.e("加载更多联网onCancelled" + cex.getMessage());
+            }
+
+            @Override
+            public void onFinished() {
+                LogUtil.e("加载更多联网onFinished");
             }
         });
     }
@@ -169,8 +243,8 @@ public class TabDetailPager extends MenuDetaiBasePager {
             }
 
             //跳转到新闻浏览页面
-            Intent intent = new Intent(context,NewsDetailActivity.class);
-            intent.putExtra("url",Constants.BASE_URL+newsData.getUrl());
+            Intent intent = new Intent(context, NewsDetailActivity.class);
+            intent.putExtra("url", Constants.BASE_URL + newsData.getUrl());
             context.startActivity(intent);
         }
     }
@@ -184,31 +258,42 @@ public class TabDetailPager extends MenuDetaiBasePager {
         TabDetailPagerBean bean = parsedJson(json);
         LogUtil.e(childrenData.getTitle() + "解析成功==" + bean.getData().getNews().get(0).getTitle());
 
-        topnews = bean.getData().getTopnews();
+        moreUrl = "";
+        if (TextUtils.isEmpty(bean.getData().getMore())) {
+            moreUrl = "";
+        } else {
+            moreUrl = Constants.BASE_URL + bean.getData().getMore();
+        }
+
+//默认和加载更多
+        if (!isLoadMore) {
+            topnews = bean.getData().getTopnews();
 //        设置ViewPager的适配器
-        viewPager.setAdapter(new TabDetailPagerTopNewsAdapter());
+            viewPager.setAdapter(new TabDetailPagerTopNewsAdapter());
 
-        //添加红点
-        addPoint();
+            //添加红点
+            addPoint();
 
-        //监听页面的改变，设置红点的变化和文本变化
-        viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
-        //默认选中
-        tv_title.setText(topnews.get(prePosition).getTitle());
+            //监听页面的改变，设置红点的变化和文本变化
+            viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+            //默认选中
+            tv_title.setText(topnews.get(prePosition).getTitle());
 
-        //准备ListView对应的集合数据
-        news = bean.getData().getNews();
-        //设置ListView的适配器
-        adapter = new TabDetailPagerListAdapter();
-        listView.setAdapter(adapter);
-//    }else{
-//        //加载更多
-//        isLoadMore = false;
-//        //添加到原来的集合中
-//        news.addAll(bean.getData().getNews());
-//        //刷新适配器
-//        adapter.notifyDataSetChanged();
-//
+            //准备ListView对应的集合数据
+            news = bean.getData().getNews();
+            //设置ListView的适配器
+            adapter = new TabDetailPagerListAdapter();
+            listView.setAdapter(adapter);
+        } else {
+            //加载更多
+            isLoadMore = false;
+            //添加到原来的集合中
+            news.addAll(bean.getData().getNews());
+            //刷新适配器
+            adapter.notifyDataSetChanged();
+
+
+        }
     }
 
     class TabDetailPagerListAdapter extends BaseAdapter {
@@ -258,11 +343,11 @@ public class TabDetailPager extends MenuDetaiBasePager {
             //设置时间
             viewHolder.tv_time.setText(newsBean.getPubdate());
 
-            String idArray = CacheUtils.getString(context,READ_ARRAY_ID);
-            if (idArray.contains(newsBean.getId()+"")){
+            String idArray = CacheUtils.getString(context, READ_ARRAY_ID);
+            if (idArray.contains(newsBean.getId() + "")) {
                 //设置灰色
                 viewHolder.tv_title.setTextColor(Color.GRAY);
-            }else {
+            } else {
                 //设置黑色
                 viewHolder.tv_title.setTextColor(Color.BLACK);
             }

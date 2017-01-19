@@ -86,6 +86,7 @@ public class NewsMenuDetailPager extends MenuDetaiBasePager {
         //注意以后监听页面的变化 ，TabPageIndicator监听页面的变化
         //tabLayout.setOnPageChangeListener(new MyOnPageChangeListener());
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+
         viewPager.setCurrentItem(tempPositon);
     }
 
